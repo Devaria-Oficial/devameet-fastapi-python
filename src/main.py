@@ -1,9 +1,13 @@
 from fastapi import Depends, FastAPI
 from .core import config
+from .core.router import router
 
-app = FastAPI()
 
+def build_api() -> FastAPI:
+    application = FastAPI()
 
-@app.get("/")
-async def root(settings: config.Settings = Depends(config.get_settings)):
-    return {"LOG_LEVEL": settings.log_level}
+    application.include_router(router, prefix="/api")
+
+    return application
+
+app = build_api()
