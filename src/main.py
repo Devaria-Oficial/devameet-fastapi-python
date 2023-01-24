@@ -1,7 +1,5 @@
 from fastapi import FastAPI
-from .core import config
 from .core.router import router
-
 
 def build_api() -> FastAPI:
     application = FastAPI()
