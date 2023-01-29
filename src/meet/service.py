@@ -20,6 +20,12 @@ class MeetService:
     def get_all_meets(self):
         return self.db.query(Meet).all()
 
+    def get_meet_by_id(self, id: str):
+        return self.db.query(Meet).filter(Meet.id == id).one()
+
+    def get_all_meet_objects(self, id: str):
+        return self.db.query(Meet).filter(Meet.id == id).one().object_meets
+
     def update_meet(self, id: str, update_meet_dto: UpdateMeet):
         meet = self.db.query(Meet).filter(Meet.id == id).one()
         
