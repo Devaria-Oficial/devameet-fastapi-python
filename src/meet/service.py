@@ -1,7 +1,7 @@
 from fastapi import Depends
 from src.core.database import SessionLocal, get_db
 
-from .model import Meet
+from .model import Meet, ObjectMeet
 from .schema import CreateMeet, UpdateMeet
 
 
@@ -35,7 +35,28 @@ class MeetService:
         self.db.commit()
         self.db.refresh(meet)
 
-        return meet
+        self.db.query(ObjectMeet).filter(ObjectMeet.meet_id == id).delete()
+        self.db.commit()
+
+        new_objects = [
+            ObjectMeet(
+                name=object_meet.name,
+                x=object_meet.x,
+                y=object_meet.y,
+                z_index=object_meet.zindex,
+                orientation=object_meet.orientation,
+                meet_id=id
+            ) for object_meet in update_meet_dto.objects
+        ]
+
+        self.db.add_all(new_objects)
+        self.db.commit()
+        self.db.refresh(meet)
+
+        return {
+            **meet.__dict__,
+            'objects': [object_meet.__dict__ for object_meet in meet.object_meets]
+        }
 
     def delete_meet(self, id: str):
         meet = self.db.query(Meet).filter(Meet.id == id).one()
