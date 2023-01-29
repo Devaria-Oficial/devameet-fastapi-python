@@ -23,3 +23,7 @@ async def update_meet(
     username: str = Depends(get_current_user), 
     service: MeetService = Depends(MeetService)):
     return service.update_meet(id, update_meet_dto)
+
+@router.delete('/{id}')
+async def delete_meet(id: str, service: MeetService = Depends(MeetService), username: str = Depends(get_current_user)):
+    return service.delete_meet(id)

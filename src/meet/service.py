@@ -30,3 +30,9 @@ class MeetService:
         self.db.refresh(meet)
 
         return meet
+
+    def delete_meet(self, id: str):
+        meet = self.db.query(Meet).filter(Meet.id == id).one()
+        self.db.delete(meet)
+        self.db.commit()
+        return meet
