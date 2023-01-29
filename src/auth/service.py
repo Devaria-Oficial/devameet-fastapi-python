@@ -2,13 +2,13 @@ from fastapi import Depends, HTTPException
 from passlib.context import CryptContext
 
 from sqlalchemy.orm import Session
+from src.core.config import get_settings
 
 from src.core.database import get_db
 
 from .handler import TokenHandler
 from .schema import Login, Register, Token
 from .model import User
-
 
 class AuthService:
     def __init__(self, db: Session = Depends(get_db)):
@@ -22,7 +22,7 @@ class AuthService:
         if not self.pwd_context.verify(login_dto.password, user.hashed_password):
             raise Exception("Incorrect username or password") # ApiError(message="Incorrect username or password", error="Incorrect username or password", status_code=401)
 
-        token = TokenHandler.create_access_token(data={"sub": user.username})
+        token = TokenHandler.create_access_token(user.username)
         return Token(token=token, name=user.name, email=user.username)
 
     def register(self, register_dto: Register):

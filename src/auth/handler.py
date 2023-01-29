@@ -11,8 +11,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="Authorization")
 
 class TokenHandler:
     @staticmethod
-    def create_access_token(username: str, duration: int = 86400):
-        expire = datetime.utcnow() + timedelta(seconds=1)
+    def create_access_token(username: str):
+        expire = datetime.utcnow() + timedelta(seconds=config.jwt_expiration)
         data = {"sub": username, "exp": expire}
         encoded_jwt = jwt.encode(data, config.jwt_secret, algorithm=config.jwt_algorithm)
         return encoded_jwt
