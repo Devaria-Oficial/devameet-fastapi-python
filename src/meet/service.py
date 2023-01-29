@@ -16,3 +16,6 @@ class MeetService:
         self.db.commit()
         self.db.refresh(meet)
         return meet
+
+    def get_all_meets(self):
+        return self.db.query(Meet).all()

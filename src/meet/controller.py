@@ -11,3 +11,7 @@ router = APIRouter()
 @router.post('/')
 async def create_meet(create_meet_dto: CreateMeet, service: MeetService = Depends(MeetService), username: str = Depends(get_current_user)):
     return service.create_meet(create_meet_dto)
+
+@router.get('/')
+async def get_all_meets(service: MeetService = Depends(MeetService), username: str = Depends(get_current_user)):
+    return service.get_all_meets()
