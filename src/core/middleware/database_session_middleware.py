@@ -1,5 +1,3 @@
-from abc import ABC
-
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
 from fastapi import Request, Response
