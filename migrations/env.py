@@ -11,6 +11,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 from src.meet.model import Meet
+from src.meet.model import ObjectMeet
 from src.auth.model import User
 from src.core.database import Base
 
