@@ -26,9 +26,9 @@ class WebSocketServer:
         self.socket_manager.on('disconnect', self.on_disconnect)
         self.socket_manager.on('join', self.on_join)
         self.socket_manager.on('move', self.on_move)
-        # self.socket_manager.on('toggl-mute-user', self.on_toggl_mute_user)
-        # self.socket_manager.on('call-user', self.on_call_user)
-        # self.socket_manager.on('make-answer', self.on_make_answer)
+        self.socket_manager.on('toggl-mute-user', self.on_toggl_mute_user)
+        self.socket_manager.on('call-user', self.on_call_user)
+        self.socket_manager.on('make-answer', self.on_make_answer)
 
     async def on_disconnect(self, sid, *args, **kwargs):
         logger.info("Disconnecting")
