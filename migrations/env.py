@@ -13,6 +13,7 @@ if config.config_file_name is not None:
 from src.meet.model import Meet
 from src.meet.model import ObjectMeet
 from src.auth.model import User
+from src.room.model import Position
 from src.core.database import Base
 
 target_metadata = Base.metadata
